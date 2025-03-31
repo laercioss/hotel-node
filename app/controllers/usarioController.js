@@ -57,4 +57,4 @@ const usuarioController = {
 
 }
 
-module.exports = usuarioCintroller;
+module.exports = usuarioController;
