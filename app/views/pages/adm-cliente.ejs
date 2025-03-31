@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
+</head>
+<body>
+    <div class="navbar navbar-inverse ">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="index-adm.html" class = "navbar-brand"><span class="material-symbols-outlined">
+                    home
+                    </span></a>
+
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="adm-cliente.html">Clientes</a></li>
+                    <li><a>Quartos</a></li>
+                    <li><a>Reservas</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        <h2>Lista de clientes</h2>
+
+<p>
+    <a href="adm-cliente-novo.html" class="btn btn-success"> Novo</a>
+</p>
+<table class="table">
+    <tr>
+        <th>Nome</th>
+        <th>Nome de Usuário</th>
+        <th>E-mail</th>
+        <th>CPF</th>
+        <th>Imagem de Perfil</th>
+        <th>Status</th>
+        <th>Ações</th>
+    </tr>
+    <tr>
+        <td>Nome</td>
+        <td>Nome de Usuário</td>
+        <td>E-mail</td>
+        <td>CPF</td>
+        <td>
+            <img alt="imagem de perfil" id="img-preview" src="../imagem/img_login.png" style="max-width:50px; max-height:50px;" />
+        </td>
+        <td>Status</td>
+        <td>
+            <a href="adm-cliente-edit.html" class="btn btn-warning"> Editar</a>
+            <a href="adm-cliente-list.html" class="btn btn-info"> Detalhes</a>
+            <a href="adm-cliente-del.html" class="btn btn-danger"> Excluir</a>
+        </td>
+    </tr>
+
+</table>
+        <hr />
+        <footer>
+            <p>&copy;2023 - Hotel IceTown</p>
+        </footer>
+    </div>
+</body>
+</html>
