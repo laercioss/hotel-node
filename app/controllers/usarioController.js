@@ -1,6 +1,7 @@
 const usuarioModel = require("../models/usuarioModel");
-
 const {body, validationResult} = require("express-validator");
+
+
 
 const usuarioController = {
 
@@ -11,50 +12,56 @@ const usuarioController = {
             .withMessage("O nome deve ter de 2 a 45 letras"),
         body("email")
             .isEmail()
-            .withMessage("O e-mail deve ser válido"),
+            .withMessage("O e-mail deve ser válido!"),
         body("senha")
             .isStrongPassword()
-            .withMessage("Asenha deve possuir no mínimo 8 caracteres: com letras maiúscula e minúscula, número e caracterer"),
+            .withMessage("A senha deve possuir no mínimo 8 caracteres:com letra maiúscula e minúscula, número e caracter especial!"),
         body("c-senha")
-            .custom((value, {req})=>{
-                if(value != req.body.senha){
-                    throw new Error ('As senhas não coincidem!');
+            .custom((value, { req }) => {
+                if( value != req.body.senha ){
+                    throw new Error('As senhas não coincidem!');
+                }else{
+                    return true;
                 }
-            })
+            })        
     ],
 
-    //metodos
+    //métodos 
     inserirUsuario: async (req, res) => {
         //recuperar dados da validação
         const listaErros = validationResult(req);
         //verificar se há erros
         if(listaErros.isEmpty()){
-            //não há erros - inser
-            //criar objeto de dados do formulario
-            let dadosParaInserir = {"nome":req.body.nome, "email":req.body.email, "senha":req.body.senha};
+            //não há erros - insert
+            //criar objeto de dados do fomrulario
+            let dadosParaInserir = {"nome":req.body.nome, "email":req.body.email,
+                 "senha":req.body.senha};
             //executar o insert
             let resultadoInsert = await usuarioModel.create(dadosParaInserir);
             if(resultadoInsert){
-                if(resultadoInsert.insertId > 0 ){
-                //insert realizado
-                res.redirect("/perfil");
+                if(resultadoInsert.insertId > 0){
+                    //insert realizado
+                    res.redirect("/perfil");
                 }else{
-                    res.render("pages/cadastro",{"listaErros":null, "valores":req.body, "falha":"falha ao inserir"});
-
+                    res.render("pages/cadastro",{"listaErros":null, 
+                        "valores":req.body,"falha":"falha ao inserir"});
                 }
             }else{
-                //falha ao inserir
-                console.log(resultadoInsert);
-                res.render("pages/cadastro",{"listaErros":null, "valores":req.body, "falha":"falha ao inserir"});
+                //falha ao iserir
+                res.render("pages/cadastro",{"listaErros":null, 
+                    "valores":req.body,"falha":"falha ao inserir"});
             }
-        
         }else{
             //há erros
             console.log(listaErros);
-            res.render("pages/cadastro",{"listaErros":listaErros, "valores":req.body, "falha":null});
+            res.render("pages/cadastro",{"listaErros":listaErros, 
+                "valores":req.body,"falha":null});
         }
+
     }
 
 }
+
+
 
 module.exports = usuarioController;
