@@ -5,7 +5,7 @@ const usuarioModel = {
     findAll: async () => {
         try {
             const [resultados, estrutura] = await
-                pool.query("SELECT * FROM autenticacao.usuario u, autenticacao.tipo_usuario t " 
+                pool.query("SELECT * FROM usuario u, autenticacao.tipo_usuario t " 
                     + " where t.id_tipo_usuario = u.tipo_usuario and u.status_usuario =1;");
             console.log(resultados);
             console.log(estrutura);
@@ -18,7 +18,7 @@ const usuarioModel = {
     //método para inserir um registro no banco de dados - usa o parametro dadosFormulario para armazenar os dados que serão inseridos no SGBD
     create: async (dadosFormulario) => {
         try {
-            const [resultados] = await pool.query("INSERT INTO `autenticacao`.`usuario` "
+            const [resultados] = await pool.query("INSERT INTO `usuario` "
                 + " (`nome_usuario`,`user_usuario`,`senha_usuario`,`email_usuario`) "
                 + " VALUES(?,?,?,?) ", [dadosFormulario.nome, dadosFormulario.nome, dadosFormulario.senha, dadosFormulario.email]);
             console.log(resultados);
