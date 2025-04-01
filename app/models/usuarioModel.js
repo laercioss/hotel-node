@@ -5,7 +5,7 @@ const usuarioModel = {
     findAll: async () => {
         try {
             const [resultados, estrutura] = await
-                pool.query("SELECT * FROM usuario u, autenticacao.tipo_usuario t " 
+                pool.query("SELECT * FROM usuario u, tipo_usuario t " 
                     + " where t.id_tipo_usuario = u.tipo_usuario and u.status_usuario =1;");
             console.log(resultados);
             console.log(estrutura);
