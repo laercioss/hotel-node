@@ -13,12 +13,16 @@ router.get("/login", (req, res)=>{
 } )
 
 router.get("/cadastro", (req, res)=>{
-    res.render("pages/cadastro")
+    res.render("pages/cadastro", 
+        {"listaErros":null, "valores":{nome:"", senha:"","csenha":"", email:""}, "falha":null})
 })
 
-router.post("/cadastro", usuarioController.validacaoFormularioCadastro,(req, res) => {
-    usuarioController.inserirUsuario(req,res);
-})
+router.post("/cadastro", 
+    usuarioController.validacaoFormularioCadastro, 
+    (req, res) =>{
+    usuarioController.inserirUsuario(req, res);
+} )
+
 
 router.get("/perfil", (req, res)=>{
         res.render("pages/perfil", {"listaErros":null,})
