@@ -3,13 +3,15 @@ const usuarioController = require("../controllers/usuarioController");
 const router = express.Router();
 const {body, validationResult} = require("express-validator");
 
+const { verificarUsuAutenticado, limparSessao, gravarUsuAutenticado, verificarUsuAutorizado } = require("../models/autenticador_middleware");
 
-router.get("/", (req, res)=>{
-    res.render("pages/index");
+
+router.get("/", verificarUsuAutenticado, function (req, res){
+    res.render("pages/index", req.session.autenticado);
 });
 
-router.get("/login", (req, res)=>{
-    res.render("pages/login");
+router.get("/login", function (req, res){
+    res.render("pages/login", { listaErros: null });
 } )
 
 router.get("/cadastro", (req, res)=>{
@@ -37,6 +39,28 @@ router.get("/teste", async (req, res) =>{
     //let dadosParaInserir = {"nome":"Joca","senha":"acesso1234","email":"joca@gmail.com"}
     //let resultadoInsert = await usuarioModel.create(dadosParaInserir);
     //let resultados = await usuarioModel.findAll();
+})
+
+router.post(
+    "/login",
+    usuarioController.regrasValidacaoFormLogin,
+    gravarUsuAutenticado,
+    function (req, res) {
+      usuarioController.logar(req, res);
+})
+  
+
+router.post("/cadastro",
+    usuarioController.regrasValidacaoFormCad,
+    async function (req, res) {
+      usuarioController.cadastrar(req, res);
+})
+
+router.get(
+    "/adm",
+    verificarUsuAutorizado([2, 3], "pages/restrito"),
+    function (req, res) {
+      res.render("pages/adm", req.session.autenticado);
 })
 
 module.exports = router
