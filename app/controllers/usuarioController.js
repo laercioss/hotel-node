@@ -1,7 +1,8 @@
+const bcrypt = require("bcryptjs");
 const usuarioModel = require("../models/usuarioModel");
 const {body, validationResult} = require("express-validator");
 
-
+const salt = bcrypt.genSaltSync(10);
 
 const usuarioController = {
 
@@ -35,7 +36,7 @@ const usuarioController = {
             //não há erros - insert
             //criar objeto de dados do fomrulario
             let dadosParaInserir = {"nome":req.body.nome, "email":req.body.email,
-                 "senha":req.body.senha};
+                 "senha": bcrypt.hashSync(req.body.senha, salt)};
             //executar o insert
             let resultadoInsert = await usuarioModel.create(dadosParaInserir);
             if(resultadoInsert){

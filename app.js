@@ -1,6 +1,14 @@
 const express = require("express");
 const app = express();
 const env = require("dotenv").config();
+const session = require('express-session')
+
+app.use(session({
+    secret:"chaveparacriptografia",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {secure: false}
+}))
 
 app.use(express.static("./app/public"));
 
