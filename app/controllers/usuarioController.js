@@ -27,6 +27,16 @@ const usuarioController = {
             })        
     ],
 
+    regrasValidacaoFormLogin: [
+        body("nome")
+            .isLength({ min: 4, max: 45 })
+            .withMessage("O nome de usuário/e-mail deve ter de 8 a 45 caracteres"),
+        body("senha")
+            .isStrongPassword()
+            .withMessage("A senha deve ter no mínimo 8 caracteres (mínimo 1 letra maiúscula, 1 caractere especial e 1 número)")
+    ],
+
+
     //métodos 
     inserirUsuario: async (req, res) => {
         //recuperar dados da validação
